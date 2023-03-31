@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2s04tjto517b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_46hom"]
+
+[node name="game" type="Node"]
+
+[node name="startmenu" type="Node" parent="."]
+
+[node name="level1" type="Node" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="level1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="level1/StaticBody3D"]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+shape = SubResource("BoxShape3D_46hom")

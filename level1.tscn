@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxxg7g2i72q7a"]
+
+[ext_resource type="PackedScene" uid="uid://b2m533ebe6jlw" path="res://player.tscn" id="1_lftin"]
+[ext_resource type="FontFile" uid="uid://cn5pk2y8yqofl" path="res://assets/Montserrat-SemiBold.ttf" id="2_a54y3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x81de"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ebm7s"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xtosc"]
+size = Vector3(21.104, 1.37332, 1.17182)
+
+[node name="level 1" type="Node"]
+
+[node name="Label 2" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 6, 50)
+text = "sus"
+font = ExtResource("2_a54y3")
+font_size = 1000
+
+[node name="Player" parent="." instance=ExtResource("1_lftin")]
+
+[node name="floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_x81de")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("BoxMesh_ebm7s")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0361728, 0.999346, 0, -0.999346, 0.0361728, 0, 13.4157, 0)
+
+[node name="Label" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -50)
+text = "amogus"
+font = ExtResource("2_a54y3")
+font_size = 1000
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Label"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.426464)
+shape = SubResource("BoxShape3D_xtosc")
