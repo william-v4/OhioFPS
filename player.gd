@@ -2,10 +2,9 @@ extends CharacterBody3D
 
 
 const SPEED = 5.0
-const JUMP_VELOCITY = 10
+const JUMP_VELOCITY = 7.5
 const mousesens = 0.2 
 const sticksens = 2
-@onready var cam = get_node("Camera3D")
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -16,8 +15,8 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(-deg_to_rad(event.relative.x) * mousesens)
-		cam.rotate_x(-deg_to_rad(event.relative.y) * mousesens)
-		cam.rotation_degrees.x = clamp(cam.rotation_degrees.x, -90, 90)
+		$view.rotate_x(-deg_to_rad(event.relative.y) * mousesens)
+		$view.rotation_degrees.x = clamp($view.rotation_degrees.x, -90, 90)
 	
 func _physics_process(delta):
 	# Add the gravity.
@@ -42,8 +41,8 @@ func _physics_process(delta):
 	# controller view control
 	var stickdir = Input.get_vector("camleft", "camright", "camup", "camdown")
 	rotate_y(-deg_to_rad(stickdir.x)*sticksens)
-	cam.rotate_x(-deg_to_rad(stickdir.y)*sticksens)
-	cam.rotation_degrees.x = clamp(cam.rotation_degrees.x, -90, 90)
+	$view.rotate_x(-deg_to_rad(stickdir.y)*sticksens)
+	$view.rotation_degrees.x = clamp($view.rotation_degrees.x, -90, 90)
 	
 	if Input.is_action_pressed("escape"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

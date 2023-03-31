@@ -1,8 +1,107 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2m533ebe6jlw"]
+[gd_scene load_steps=20 format=3 uid="uid://b2m533ebe6jlw"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_wvrkh"]
+[ext_resource type="PackedScene" uid="uid://bj30tc1s00dfd" path="res://assets/gun.glb" id="2_cvkrv"]
+[ext_resource type="Script" path="res://assets/gun.gd" id="3_6jond"]
+[ext_resource type="Script" path="res://shoot.gd" id="3_v2exj"]
+[ext_resource type="AudioStream" uid="uid://bq8aaqlmlh4ei" path="res://assets/shoot.wav" id="5_ggnqn"]
+[ext_resource type="Script" path="res://bullettrace.gd" id="6_46gsb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jee0g"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tpahl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v68bt"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_me3w1"]
+friction = 0.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_tulgv"]
+radius = 0.02
+
+[sub_resource type="Animation" id="Animation_5o7xx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1.19209e-07, 3.39542, -1.07288e-06)]
+}
+
+[sub_resource type="Animation" id="Animation_m7t15"]
+resource_name = "fire"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.19209e-07, 3.39542, -1.07288e-06), Vector3(0, -100, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1nhmu"]
+_data = {
+"RESET": SubResource("Animation_5o7xx"),
+"fire": SubResource("Animation_m7t15")
+}
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ibu5u"]
+top_radius = 0.02
+bottom_radius = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_llrh5"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_52pix"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.552946, 0.217447, -0.354103)]
+}
+
+[sub_resource type="Animation" id="Animation_sf1wc"]
+resource_name = "knockback"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.552946, 0.217447, -0.354103), Vector3(0.553, 0.217, -0.172), Vector3(0.553, 0.217, -0.354)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fsnbh"]
+_data = {
+"RESET": SubResource("Animation_52pix"),
+"knockback": SubResource("Animation_sf1wc")
+}
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_wvrkh")
@@ -10,5 +109,55 @@ script = ExtResource("1_wvrkh")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_jee0g")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="view" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="view"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="gun" parent="view" instance=ExtResource("2_cvkrv")]
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0.552946, 0.217447, -0.354103)
+script = ExtResource("3_6jond")
+
+[node name="Cube001" parent="view/gun" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_tpahl")
+
+[node name="Cube002" parent="view/gun" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_v68bt")
+surface_material_override/1 = SubResource("StandardMaterial3D_v68bt")
+
+[node name="ray" type="RayCast3D" parent="view/gun"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.847006, 0.131313, -0.00544727)
+debug_shape_custom_color = Color(0.960784, 0, 0.792157, 1)
+debug_shape_thickness = 1
+script = ExtResource("6_46gsb")
+
+[node name="bullet" type="RigidBody3D" parent="view/gun"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.19209e-07, 3.39542, -1.07288e-06)
+mass = 0.01
+physics_material_override = SubResource("PhysicsMaterial_me3w1")
+gravity_scale = 0.0
+script = ExtResource("3_v2exj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="view/gun/bullet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+shape = SubResource("CylinderShape3D_tulgv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="view/gun/bullet"]
+libraries = {
+"": SubResource("AnimationLibrary_1nhmu")
+}
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="view/gun/bullet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+mesh = SubResource("CylinderMesh_ibu5u")
+surface_material_override/0 = SubResource("StandardMaterial3D_llrh5")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="view/gun/bullet"]
+stream = ExtResource("5_ggnqn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="view/gun"]
+libraries = {
+"": SubResource("AnimationLibrary_fsnbh")
+}
+
+[editable path="view/gun"]
