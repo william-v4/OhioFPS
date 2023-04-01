@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3 uid="uid://cxxg7g2i72q7a"]
+
+[ext_resource type="FontFile" uid="uid://cn5pk2y8yqofl" path="res://assets/Montserrat-SemiBold.ttf" id="1_yl3o2"]
+[ext_resource type="PackedScene" uid="uid://5dn7qjmvsmos" path="res://player.tscn" id="2_f8177"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x81de"]
+size = Vector3(30, 1, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ebm7s"]
+size = Vector3(30, 1, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6nwmu"]
+size = Vector3(2, 2, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u1xtc"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_okl56"]
+size = Vector3(2, 2, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_crpn2"]
+albedo_color = Color(0, 1, 1, 1)
+
+[node name="debug" type="Node"]
+
+[node name="Label 2" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 6, 18.0694)
+text = "sus"
+font = ExtResource("1_yl3o2")
+font_size = 100
+width = 1000.0
+
+[node name="floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_x81de")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("BoxMesh_ebm7s")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0361728, 0.999346, 0, -0.999346, 0.0361728, 0, 10.2897, 0)
+
+[node name="Label" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -13.986)
+text = "amogus"
+font = ExtResource("1_yl3o2")
+font_size = 100
+
+[node name="obstacle1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0156, 0.528853, -4.96914)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="obstacle1"]
+mesh = SubResource("BoxMesh_6nwmu")
+surface_material_override/0 = SubResource("StandardMaterial3D_u1xtc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="obstacle1"]
+shape = SubResource("BoxShape3D_okl56")
+
+[node name="obstacle2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4744, 0.528853, -4.96914)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="obstacle2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.60613, 0, 0)
+mesh = SubResource("BoxMesh_6nwmu")
+surface_material_override/0 = SubResource("StandardMaterial3D_crpn2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="obstacle2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.606, 0, 0)
+shape = SubResource("BoxShape3D_okl56")
+
+[node name="Player" parent="." instance=ExtResource("2_f8177")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08135, 0)

@@ -1,68 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxxg7g2i72q7a"]
+[gd_scene load_steps=3 format=3 uid="uid://5swvbdxnl2fa"]
 
-[ext_resource type="PackedScene" uid="uid://b2m533ebe6jlw" path="res://player.tscn" id="1_lftin"]
-[ext_resource type="FontFile" uid="uid://cn5pk2y8yqofl" path="res://assets/Montserrat-SemiBold.ttf" id="2_a54y3"]
+[ext_resource type="PackedScene" uid="uid://5dn7qjmvsmos" path="res://player.tscn" id="1_lftin"]
+[ext_resource type="PackedScene" uid="uid://b5ilriy5csuy" path="res://level1model.tscn" id="2_bykw8"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_x81de"]
-size = Vector3(30, 1, 30)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ebm7s"]
-size = Vector3(30, 1, 30)
-
-[sub_resource type="BoxMesh" id="BoxMesh_6nwmu"]
-size = Vector3(2, 2, 20)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_okl56"]
-size = Vector3(2, 2, 20)
-
-[node name="level 1" type="Node"]
-
-[node name="Label 2" type="Label3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 6, 18.0694)
-text = "sus"
-font = ExtResource("2_a54y3")
-font_size = 100
-width = 1000.0
+[node name="level1" type="Node"]
 
 [node name="Player" parent="." instance=ExtResource("1_lftin")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.1593, 0, 13.6376)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.55917, 1.76471, -1.22706)
 
-[node name="floor" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-shape = SubResource("BoxShape3D_x81de")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-mesh = SubResource("BoxMesh_ebm7s")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.0361728, 0.999346, 0, -0.999346, 0.0361728, 0, 3.72544, 0)
-
-[node name="Label" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -13.986)
-text = "amogus"
-font = ExtResource("2_a54y3")
-font_size = 100
-
-[node name="obstacle1" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.0156, 0.528853, -4.96914)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="obstacle1"]
-mesh = SubResource("BoxMesh_6nwmu")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="obstacle1"]
-shape = SubResource("BoxShape3D_okl56")
-
-[node name="obstacle2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4744, 0.528853, -4.96914)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="obstacle2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.60613, 0, 0)
-mesh = SubResource("BoxMesh_6nwmu")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="obstacle2"]
-shape = SubResource("BoxShape3D_okl56")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="level1" parent="." instance=ExtResource("2_bykw8")]
