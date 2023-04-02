@@ -1,6 +1,5 @@
 extends Node3D
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -15,4 +14,4 @@ func _process(delta):
 		$AudioStreamPlayer.play()
 	if not $AnimationPlayer.is_playing():
 		$laser/MeshInstance3D.mesh.set_height(0.5)
-		
+	

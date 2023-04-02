@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" uid="uid://pyrgq0f58bxa" path="res://assets/level1nav.glb" id="1_1auio"]
+[ext_resource type="ArrayMesh" uid="uid://dhhxejj8ixn54" path="res://assets/level1navmesh.tres" id="2_8uq0c"]
+
+[node name="level1nav" instance=ExtResource("1_1auio")]
+
+[node name="Plane" parent="." index="0"]
+mesh = ExtResource("2_8uq0c")

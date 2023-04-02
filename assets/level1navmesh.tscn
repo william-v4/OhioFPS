@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://7vjnexro5euv"]
+
+[ext_resource type="PackedScene" uid="uid://pyrgq0f58bxa" path="res://assets/level1nav.glb" id="1_w0n42"]
+
+[node name="level1nav" instance=ExtResource("1_w0n42")]

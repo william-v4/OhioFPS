@@ -6,6 +6,5 @@
 [node name="level1" type="Node"]
 
 [node name="Player" parent="." instance=ExtResource("1_lftin")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.55917, 1.76471, -1.22706)
 
 [node name="level1" parent="." instance=ExtResource("2_bykw8")]
