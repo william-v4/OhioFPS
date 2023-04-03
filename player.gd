@@ -9,7 +9,8 @@ signal hurt()
 var health = 40
 const knockmod = 0.2
 var hurting = 0
-var input_dir
+var enemyattack = 10
+var enemyinrange = 0
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -18,6 +19,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	$view/gameovertext.visible = 0
+	Signalbus.ded.connect(_on_spooder_ded)
+	$CanvasLayer/RichTextLabel.text = str(health)
 	
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -29,14 +32,15 @@ func _on_area_entered(body):
 	if body is CharacterBody3D:
 		health -= 10
 
-func knockback(enemy, damage):
-	var knockdir = get_node(str(enemy)).position.direction_to(position)
-	var knockstrength = damage * knockmod
-	var knock = knockdir * knockstrength
+#func knockback(enemy, damage):
+#	var knockdir = get_node(str(enemy)).position.direction_to(position)
+#	var knockstrength = damage * knockmod
+#	var knock = knockdir * knockstrength
 	
 	
 
 func _physics_process(delta):
+	$CanvasLayer/RichTextLabel.text = str(health)
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -75,6 +79,7 @@ func _physics_process(delta):
 			t.start()
 			await t.timeout
 	
+	
 	if health < 0:
 		health = 0
 		
@@ -106,20 +111,48 @@ func _physics_process(delta):
 
 func _on_area_3d_body_entered(body):
 	print(body.name)
-	if body.name == "spooder":
-		var hurting = 1
-		while hurting == 1:
-			health -= 10
-			print("ouch")
-			knockback("../spooder", 10)
-			emit_signal("hurt")
-			var t = Timer.new()
-			t.set_wait_time(2)
-			t.set_one_shot(true)
-			self.add_child(t)
-			t.start()
-			await t.timeout
+	if body.is_in_group("enemylevel1"):
+		hurting = 1
+		healthcount()
 
 
 func _on_area_3d_body_exited(body):
-	hurting = 0
+	if body.is_in_group("enemylevel1"):
+		hurting = 0
+
+
+func _on_level_1_restart(stage):
+	if stage == 2:
+		enemyattack = 15
+		
+func _on_spooder_ded():
+	if enemyinrange == 1:
+		print("dead body reported")
+		$AnimationPlayer.play("heal")
+		health += 10
+		var t = Timer.new()
+		t.set_wait_time(2)
+		t.set_one_shot(true)
+		self.add_child(t)
+		t.start()
+		await t.timeout
+
+
+func _on_enemydetector_body_entered(body):
+	if body.is_in_group("enemylevel1"):
+		enemyinrange = 1
+
+
+
+func _on_enemydetector_body_exited(body):
+	if body.is_in_group("enemylevel1"):
+		enemyinrange = 0
+
+func healthcount():
+	while hurting == 1:
+		health -= enemyattack
+		$hurttimer.start()
+		$AnimationPlayer.play("hurt")
+		print("ouch")
+		emit_signal("hurt")
+		await $hurttimer.timeout
