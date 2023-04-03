@@ -23,3 +23,16 @@ All code, graphics, audio, and otherwise assets are made in-house by our team (e
 ## Import
 
 I've used Godot for this, so clone or download a zip of this repo and import it open project.godot in godot 4.0
+
+## Music
+I've used Bitwig Studio for the soundtrack (and the shooting sound). To open it you'll need:
+- [Bitwig Studio](https://bitwig.com) (open in demo mode [free])
+- Bitwig essentials samples
+- [Vital](https://vital.audio) synth
+- [SurgeXT](https://surge-synth-team.org/surge/) synth
+- [Dexed](https://asb2m10.github.io/dexed/) synth
+- [Monique](https://surge-synth-team.org/monique/) synth
+- [helm](https://tytel.org/helm/)
+
+If you are really curious, import the Bitwig project and have a look
+The laser gun sound is on the track named `pew pew`
