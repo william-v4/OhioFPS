@@ -1,9 +1,10 @@
-[gd_scene load_steps=61 format=3 uid="uid://ckhytvg2cd6l2"]
+[gd_scene load_steps=62 format=3 uid="uid://ckhytvg2cd6l2"]
 
 [ext_resource type="PackedScene" uid="uid://cqfrssi7ir0ek" path="res://assets/level1.glb" id="1_m33v1"]
 [ext_resource type="PackedScene" uid="uid://5dn7qjmvsmos" path="res://player.tscn" id="2_6mmvn"]
 [ext_resource type="Script" path="res://level1-2.gd" id="2_6v303"]
 [ext_resource type="PackedScene" uid="uid://dcs6euthduoby" path="res://spooder.tscn" id="3_l1w71"]
+[ext_resource type="AudioStream" uid="uid://bstq3awlcm7by" path="res://music/musicfromohio 2023-04-02 2340.wav" id="5_w814i"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ha6i0"]
 size = Vector3(49.33, 0.001, 67.4531)
@@ -501,6 +502,10 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="exit/Area3D" index="0"]
 shape = SubResource("SphereShape3D_dsklv")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="64"]
+stream = ExtResource("5_w814i")
+volume_db = -10.0
 
 [connection signal="restart" from="." to="Player" method="_on_level_1_restart"]
 [connection signal="hurt" from="Player" to="spooder" method="_on_player_hurt"]

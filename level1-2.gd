@@ -22,6 +22,8 @@ func reset(difficulty):
 			add_child(load("res://spooder.tscn").instantiate())
 		emit_signal("restart", difficulty)
 		playerreset()
+	if difficulty == 3:
+		$AudioStreamPlayer.play()
 
 func _on_area_3d_body_entered(body):
 	if body.name == "Player":
