@@ -34,5 +34,8 @@ I've used Bitwig Studio for the soundtrack (and the shooting sound). To open it 
 - [Monique](https://surge-synth-team.org/monique/) synth
 - [helm](https://tytel.org/helm/)
 
-If you are really curious, import the Bitwig project and have a look
+If you are really curious, import the [Bitwig project](https://github.com/william-v4/OhioFPS/tree/main/music/musicfromohio) and have a look
+
+
+
 The laser gun sound is on the track named `pew pew`
